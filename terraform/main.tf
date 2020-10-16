@@ -5,21 +5,21 @@ provider "azurerm" {
 }
 data "azurerm_subscription" "current" {}
 
-resource "azurerm_resource_group" "rgid" {
+resource "azurerm_resource_group" "trid" {
   name     = "rg${local.alias}"
   location = local.region
 }
 resource "azurerm_container_registry" "acr" {
   name                     = "acr${local.alias}01"
-  location                 = azurerm_resource_group.rgid.location
-  resource_group_name      = azurerm_resource_group.rgid.name
+  location                 = azurerm_resource_group.trid.location
+  resource_group_name      = azurerm_resource_group.trid.name
   sku                      = "Basic"
   admin_enabled            = true
 }
 resource "azurerm_virtual_network" "vnetid" {
   name                = "vnet${local.alias}"
-  location            = azurerm_resource_group.rgid.location
-  resource_group_name = azurerm_resource_group.rgid.name
+  location            = azurerm_resource_group.trid.location
+  resource_group_name = azurerm_resource_group.trid.name
   address_space       = ["11.0.0.0/16"]
 
   subnet {
@@ -35,8 +35,8 @@ resource "azurerm_virtual_network" "vnetid" {
 
 resource "azurerm_kubernetes_cluster" "aksid" {
   name                = "aks${local.alias}pe"
-  location            = azurerm_resource_group.rgid.location
-  resource_group_name = azurerm_resource_group.rgid.name
+  location            = azurerm_resource_group.trid.location
+  resource_group_name = azurerm_resource_group.trid.name
   dns_prefix          = "aks${local.alias}pe"
 
   default_node_pool {
@@ -49,7 +49,7 @@ resource "azurerm_kubernetes_cluster" "aksid" {
     type            = "VirtualMachineScaleSets"
     availability_zones  = [1, 2, 3]
     enable_auto_scaling = true
-    vnet_subnet_id = "/subscriptions/${data.azurerm_subscription.current.subscription_id}/resourceGroups/${azurerm_resource_group.rgid.name}/providers/Microsoft.Network/virtualNetworks/${azurerm_virtual_network.vnetid.name}/subnets/default"
+    vnet_subnet_id = "/subscriptions/${data.azurerm_subscription.current.subscription_id}/resourceGroups/${azurerm_resource_group.trid.name}/providers/Microsoft.Network/virtualNetworks/${azurerm_virtual_network.vnetid.name}/subnets/default"
   }
 
   service_principal {
