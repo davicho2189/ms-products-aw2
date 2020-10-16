@@ -1,7 +1,7 @@
 
 locals {
     #Debe ser único, ejemplo, alias = "jlgc"
-    alias = "cdgh"
+    alias = "azk8bootcam"
     #ejemplo, region = "East US 2"
     region = "Central US"
     workers = 2
