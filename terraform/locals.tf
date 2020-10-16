@@ -9,5 +9,5 @@ locals {
     subscripcion = "Azure subscription 1"
     #az ad sp create-for-rbac --role="Contributor" --scopes="/subscriptions/<subscriptionID>/resourceGroups/<resourceGroupName>" 
     clientid = "62af8637-ba04-45b8-9c00-8edd0dfb0676"
-    clientsecret = "ybz~GQm-UNf0B-f9-z9E-k78e5yfK3Z6j3"
+    clientsecret = "ItsJjQUBc.l8M.ep68BzF~lSov-bv~YW3m"
 }
